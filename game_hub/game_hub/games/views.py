@@ -73,3 +73,28 @@ def delete_game(request, pk):
     game = Game.objects.get(pk=pk)
     game.delete()
     return redirect('catalogue list')
+
+
+class GameMyGames(LoginRequiredMixin, view.ListView):
+    template_name = 'game_templates/game_my_games.html'
+    model = Game
+    context_object_name = 'games'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        my_games = Game.objects.filter(pk=self.request.user.id)
+        numbers_of_games = len(my_games)
+        context['games'] = my_games
+        context['numbers_of_games'] = numbers_of_games
+
+        return context
+
+# def game_my_games(request):
+#     my_games = Game.objects.filter(pk=request.user.id)
+#     numbers_of_my_games = len(my_games)
+#
+#     context = {
+#         'my_games': my_games,
+#         'numbers_of_my_games': numbers_of_my_games,
+#     }
+#

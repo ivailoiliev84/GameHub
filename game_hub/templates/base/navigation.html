@@ -5,7 +5,8 @@
         {% if request.user.is_authenticated %}
             <p>Hello {{ request.user }}</p>
             <a href="#">My Profile</a>
-            <a href="{% url 'catalogue list' %}">All games</a>
+            <a href="{% url 'my games' %}">My Games</a>
+            <a href="{% url 'catalogue list' %}">All Games</a>
             <!-- Logged-in users -->
 
             <div id="user">
