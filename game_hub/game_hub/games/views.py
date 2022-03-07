@@ -23,6 +23,7 @@ class CatalogueListView(LoginRequiredMixin, view.ListView):
         context['games'] = Game.objects.all()
         return context
 
+
 def game_create(request):
     if request.method == 'POST':
         form = GameForm(request.POST, request.FILES)
@@ -37,3 +38,38 @@ def game_create(request):
         'form': form
     }
     return render(request, 'game_templates/game_create.html', context)
+
+
+def game_details(request, pk):
+    game = Game.objects.get(pk=pk)
+
+    is_owner = game.id == request.user.id
+
+    context = {
+        'game': game,
+        'is_owner': is_owner,
+    }
+    return render(request, 'game_templates/game_detail.html', context)
+
+
+def game_edit(request, pk):
+    game = Game.objects.get(pk=pk)
+    if request.method == 'POST':
+        form = GameForm(request.POST, request.FILES, instance=game)
+        if form.is_valid():
+            form.save()
+            return redirect('game details', game.id)
+    else:
+        form = GameForm(instance=game)
+
+    context = {
+        'form': form,
+        'game': game,
+    }
+    return render(request, 'game_templates/game_edit.html', context)
+
+
+def delete_game(request, pk):
+    game = Game.objects.get(pk=pk)
+    game.delete()
+    return redirect('catalogue list')

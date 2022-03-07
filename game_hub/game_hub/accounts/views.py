@@ -11,7 +11,7 @@ from game_hub.accounts.forms import CreateGameHubUser, LoginForm
 class RegisterUser(view.CreateView):
     form_class = CreateGameHubUser
     template_name = 'accounts_templates/register_page.html'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('catalogue list')
 
     def form_valid(self, form):
         user = super().form_valid(form)
@@ -25,7 +25,7 @@ def login_user(request):
         if form.is_valid():
             user = form.save_user()
             login(request, user)
-            return redirect('home')
+            return redirect('catalogue list')
     else:
         form = LoginForm()
     context = {

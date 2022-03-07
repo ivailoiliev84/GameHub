@@ -6,17 +6,14 @@
         <div class="info-section">
 
             <div class="game-header">
-                <img class="game-img" src="images/MineCraft.png"/>
+                <img class="game-img" src="{{ game.image.url }}"/>
                 <h1>Bright</h1>
-                <span class="levels">MaxLevel: 4</span>
-                <p class="type">Action, Crime, Fantasy</p>
+                <span class="levels">MaxLevel: {{ game.max_level }}</span>
+                <p class="type">{{ game.category }}</p>
             </div>
 
             <p class="text">
-                Set in a world where fantasy creatures live side by side with humans. A human cop is forced to work
-                with an Orc to find a weapon everyone is prepared to kill for. Set in a world where fantasy
-                creatures live side by side with humans. A human cop is forced
-                to work with an Orc to find a weapon everyone is prepared to kill for.
+                {{ game.description }}
             </p>
 
             <!-- Bonus ( for Guests and Users ) -->
@@ -34,12 +31,14 @@
                 <!-- Display paragraph: If there are no games in the database -->
                 <p class="no-comment">No comments.</p>
             </div>
-
+            
+            {% if is_owner %}
             <!-- Edit/Delete buttons ( Only for creator of this game )  -->
             <div class="buttons">
-                <a href="#" class="button">Edit</a>
-                <a href="#" class="button">Delete</a>
+                <a href="{% url 'game edit' game.id %}" class="button">Edit</a>
+                <a href="{% url 'delete game' game.id %}" class="button">Delete</a>
             </div>
+            {% endif %}
         </div>
 
         <!-- Bonus -->
