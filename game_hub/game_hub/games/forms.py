@@ -1,6 +1,6 @@
 from django import forms
 
-from game_hub.games.models import Game
+from game_hub.games.models import Game, Comment
 
 
 class GameForm(forms.ModelForm):
@@ -14,3 +14,9 @@ class GameForm(forms.ModelForm):
             'image': forms.FileInput(),
             'description': forms.Textarea(attrs={'placeholder': 'Enter descriptions', 'row': 3}),
         }
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('comment',)
