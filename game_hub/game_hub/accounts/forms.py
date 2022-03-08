@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
 
 from game_hub.accounts.models import Profile
+from game_hub.core.forms_bootstrap import BootstrapFormMixin
 
 UserModel = get_user_model()
 
@@ -22,10 +23,6 @@ class CreateGameHubUser(UserCreationForm):
     class Meta:
         model = UserModel
         fields = ('email',)
-
-        # widgets = {
-        #     'email': forms.TextInput(attrs={'placeholder': 'email', 'id': 'email'})
-        # }
 
 
 class LoginForm(forms.Form):
@@ -50,7 +47,11 @@ class LoginForm(forms.Form):
         return self.user
 
 
-class CreateProfileForm(forms.ModelForm):
+class CreateProfileForm(BootstrapFormMixin, forms.ModelForm):
     class Meta:
         model = Profile
         exclude = ('user',)
+
+        widgets = {
+            'profile_picture': forms.FileInput()
+        }

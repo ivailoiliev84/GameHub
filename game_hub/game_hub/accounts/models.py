@@ -91,12 +91,6 @@ class Profile(models.Model):
         )
     )
 
-    profile_picture = models.ImageField(
-        upload_to='profile_pictures',
-        blank=True,
-        null=True
-
-    )
 
     date_of_birth = models.DateField(
         null=True,
@@ -106,22 +100,27 @@ class Profile(models.Model):
         )
     )
 
-    description = models.TextField(
-        null=True,
+    profile_picture = models.ImageField(
+        upload_to='profile_pictures',
         blank=True,
-    )
+        null=True
 
-    email = models.EmailField(
-        null=True,
-        blank=True,
     )
-
     gender = models.CharField(
         max_length=max(len(x) for (x, _) in GENDER),
         choices=GENDER,
         null=True,
         blank=True,
     )
+    description = models.TextField(
+        null=True,
+        blank=True,
+    )
+
+
+
+
+
     user = models.OneToOneField(
         GameHubUser,
         on_delete=models.CASCADE,

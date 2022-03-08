@@ -1,9 +1,10 @@
 from django import forms
 
+from game_hub.core.forms_bootstrap import BootstrapFormMixin
 from game_hub.games.models import Game, Comment
 
 
-class GameForm(forms.ModelForm):
+class GameForm(BootstrapFormMixin, forms.ModelForm):
     class Meta:
         model = Game
         fields = ('title', 'category', 'max_level', 'image', 'description',)

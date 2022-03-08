@@ -4,7 +4,7 @@
     <nav>
         {% if request.user.is_authenticated %}
             <p>Hello {{ request.user }}</p>
-            <a href="#">My Profile</a>
+            <a href="{% url 'profile' %}">My Profile</a>
             <a href="{% url 'my games' %}">My Games</a>
             <a href="{% url 'catalogue list' %}">All Games</a>
             <!-- Logged-in users -->
