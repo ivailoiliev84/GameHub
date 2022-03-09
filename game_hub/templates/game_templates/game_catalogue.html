@@ -1,10 +1,8 @@
 {% extends 'base/base.html' %}
 {% block content %}
-    <!-- Catalogue -->
     <section id="catalog-page">
         <h1>All Games</h1>
         {% if games %}
-            <!-- Display div: with information about every game (if any) -->
             {% for game in games %}
                 <div class="allGames">
                     <div class="allGames-info">
@@ -16,9 +14,7 @@
                 </div>
             {% endfor %}
         {% else %}
-            <!-- Display paragraph: If there is no games  -->
             <h3 class="no-articles">No articles yet</h3>
         {% endif %}
     </section>
-
 {% endblock %}

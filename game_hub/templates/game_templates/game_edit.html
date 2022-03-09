@@ -5,13 +5,9 @@
         <form id="edit" action="{% url  'game edit' game.id %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="container">
-
-
                 <h1>Edit Game</h1>
-                {{ form  }}
-{#
+                {{ form }}
                 <input class="btn submit" type="submit" value="Edit Game">
-
             </div>
         </form>
     </section>

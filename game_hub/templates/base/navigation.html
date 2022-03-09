@@ -1,20 +1,21 @@
 <header>
-    <!-- Navigation -->
     <h1><a class="home" href="{% url 'home' %}">GamesPlay</a></h1>
+    <h1><a class="home" href="{% url 'home' %}">Shop</a></h1>
     <nav>
         {% if request.user.is_authenticated %}
             <p>Hello {{ request.user }}</p>
+            <div id="nav-size">
             <a href="{% url 'profile' %}">My Profile</a>
             <a href="{% url 'my games' %}">My Games</a>
             <a href="{% url 'catalogue list' %}">All Games</a>
-            <!-- Logged-in users -->
+            </div>
 
             <div id="user">
                 <a href="{% url 'create game' %}">Create Game</a>
                 <a href="{% url 'logout' %}">Logout</a>
             </div>
         {% else %}
-            <!-- Guest users -->
+
             <div id="guest">
                 <a href="{% url 'login' %}">Login</a>
                 <a href="{% url 'register' %}">Register</a>
