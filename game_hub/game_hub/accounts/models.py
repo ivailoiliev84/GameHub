@@ -91,7 +91,6 @@ class Profile(models.Model):
         )
     )
 
-
     date_of_birth = models.DateField(
         null=True,
         blank=True,
@@ -116,10 +115,6 @@ class Profile(models.Model):
         null=True,
         blank=True,
     )
-
-
-
-
 
     user = models.OneToOneField(
         GameHubUser,
