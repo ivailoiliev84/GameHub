@@ -76,5 +76,9 @@ def profile_delete(request):
         profile.delete()
         return redirect('home')
     else:
-        return render(request, 'profile_templates/profile_delete.html')
+
+        context = {
+           'user': user,
+        }
+        return render(request, 'profile_templates/profile_delete.html', context)
 

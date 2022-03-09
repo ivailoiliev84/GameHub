@@ -1,0 +1,14 @@
+
+body {
+    background-image: url('../images/background.jpg');
+    background-attachment: fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+
+nav{
+    font-size: 20px;
+}
