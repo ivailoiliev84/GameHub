@@ -1,3 +1,5 @@
+import os
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
@@ -60,9 +62,12 @@ def game_details(request, pk):
 
 def game_edit(request, pk):
     game = Game.objects.get(pk=pk)
+    old_picture = game.image.path
+
     if request.method == 'POST':
         form = GameForm(request.POST, request.FILES, instance=game)
         if form.is_valid():
+            os.remove(old_picture)
             form.save()
             return redirect('game details', game.id)
     else:
