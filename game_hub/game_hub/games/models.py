@@ -54,8 +54,6 @@ class Game(models.Model):
     )
 
     image = models.ImageField(
-        blank=True,
-        null=True,
         upload_to='game_images',
         validators=(
             ValidatorMaxSizeInMB(IMAGE_MAX_SIZE),
