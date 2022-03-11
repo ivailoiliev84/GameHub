@@ -10,14 +10,18 @@
                 <h1>{{ game.category }}</h1>
                 {% if not is_owner %}
                     <div>
-                    <h3>Like count</h3>
-                    <a href="{% url 'like game' game.id %}">
-                    Like: {{ like_game_count }}</a>
-                </div>
+                        <h3>Like count: {{ like_game_count }}</h3>
+                        <a href="{% url 'like game' game.id %}">
+                            Likes</a>
+                    </div>
+                {% else %}
+                    <div>
+                        <h3>Like count: {{ like_game_count }}</h3>
+                    </div>
                 {% endif %}
             </div>
             <p class="text">
-                {{ game.description }}
+                Description: {{ game.description }}
             </p>
             <div class="details-comments">
                 <h2>Comments:</h2>
@@ -42,7 +46,6 @@
                     <a href="{% url 'game edit' game.id %}" class="button">Edit</a>
                     <a href="{% url 'delete game' game.id %}" class="button">Delete</a>
                 </div>
-
             {% endif %}
         </div>
         {% if not is_owner %}
