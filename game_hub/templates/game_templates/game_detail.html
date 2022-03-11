@@ -5,9 +5,16 @@
         <div class="info-section">
             <div class="game-header">
                 <img class="game-img" src="{{ game.image.url }}"/>
+                <h2>Publication owner: {{ user }}</h2>
                 <h1>{{ game.title }}</h1>
-                <span class="levels">MaxLevel: {{ game.max_level }}</span>
-                <p class="type">{{ game.category }}</p>
+                <h1>{{ game.category }}</h1>
+                {% if not is_owner %}
+                    <div>
+                    <h3>Like count</h3>
+                    <a href="{% url 'like game' game.id %}">
+                    Like: {{ like_game_count }}</a>
+                </div>
+                {% endif %}
             </div>
             <p class="text">
                 {{ game.description }}
@@ -35,6 +42,7 @@
                     <a href="{% url 'game edit' game.id %}" class="button">Edit</a>
                     <a href="{% url 'delete game' game.id %}" class="button">Delete</a>
                 </div>
+
             {% endif %}
         </div>
         {% if not is_owner %}

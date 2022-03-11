@@ -88,3 +88,14 @@ class Comment(models.Model):
         Game,
         on_delete=models.CASCADE,
     )
+
+
+class LikeGame(models.Model):
+    game = models.ForeignKey(
+        Game,
+        on_delete=models.CASCADE,
+    )
+    user = models.ForeignKey(
+        GameUser,
+        on_delete=models.CASCADE,
+    )

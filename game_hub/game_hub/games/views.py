@@ -9,7 +9,7 @@ from django.views import generic as view
 
 # Create your views here.
 from game_hub.games.forms import GameForm, CommentForm
-from game_hub.games.models import Game, Comment
+from game_hub.games.models import Game, Comment, LikeGame
 
 
 class HomeView(view.TemplateView):
@@ -47,7 +47,8 @@ def game_create(request):
 def game_details(request, pk):
     game = Game.objects.get(pk=pk)
     comments = game.comment_set.all()
-    user = request.user
+    user = game.user
+    like_game_count = game.likegame_set.count()
 
     is_owner = game.user == request.user
 
@@ -56,6 +57,7 @@ def game_details(request, pk):
         'is_owner': is_owner,
         'comments': comments,
         'user': user,
+        'like_game_count': like_game_count,
     }
     return render(request, 'game_templates/game_detail.html', context)
 
@@ -102,25 +104,6 @@ class GameMyGames(LoginRequiredMixin, view.ListView):
         return context
 
 
-
-# def game_my_games(request):
-#     my_games = Game.objects.filter(pk=request.user.id)
-#     numbers_of_my_games = len(my_games)
-#
-#     context = {
-#         'my_games': my_games,
-#         'numbers_of_my_games': numbers_of_my_games,
-#     }
-#     return render(request, 'game_templates/game_my_games.html', context)
-
-
-
-# class CreateCommentView(view.CreateView):
-#     template_name = 'game_templates/game_detail.html'
-#     model = Comment
-#     success_url = reverse_lazy('game details')
-
-
 def create_comment(request, pk):
     game = Game.objects.get(pk=pk)
     form = CommentForm(request.POST)
@@ -132,3 +115,18 @@ def create_comment(request, pk):
         )
         comment.save()
         return redirect('game details', game.id)
+
+
+def create_like(request, pk):
+    game = Game.objects.get(pk=pk)
+    user_whu_like = game.likegame_set.filter(user_id=request.user.id).first()
+
+    if user_whu_like:
+        user_whu_like.delete()
+    else:
+        like = LikeGame(
+            game=game,
+            user=request.user,
+        )
+        like.save()
+    return redirect('game details', game.id)
