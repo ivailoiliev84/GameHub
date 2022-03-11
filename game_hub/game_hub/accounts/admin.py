@@ -19,6 +19,7 @@ class GmeInlineAdmin(admin.StackedInline):
 
 @admin.register(GameUser)
 class UserAdmin(admin.ModelAdmin):
+    list_display = ('email',  'is_staff', 'is_superuser' ,'data_joined')
     inlines = (ProfileInlineAdmin,)
 
 

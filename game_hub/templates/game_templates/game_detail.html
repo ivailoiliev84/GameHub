@@ -18,8 +18,6 @@
                     <div>
                         <h3>Like count: {{ like_game_count }}</h3>
                     </div>
-
-
                 {% endif %}
             </div>
             <p class="text">
@@ -48,7 +46,6 @@
                     <a href="{% url 'game edit' game.id %}" class="button">Edit</a>
                     <a href="{% url 'delete game' game.id %}" class="button">Delete</a>
                 </div>
-
             {% endif %}
         </div>
         {% if not is_owner %}
