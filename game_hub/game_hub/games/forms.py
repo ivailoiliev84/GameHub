@@ -19,19 +19,6 @@ class GameForm(BootstrapFormMixin, forms.ModelForm):
         }
 
 
-# class GameEditForm(BootstrapFormMixin, forms.ModelForm):
-#     def __init__(self, *args, **kwargs):
-#         super().__init__(*args, **kwargs)
-#
-#     def save(self, *args):
-#         file_path = self.instance.image.path
-#         os.remove(file_path)
-#
-#     class Meta:
-#         model = Game
-#         fields = ('title', 'category', 'max_level', 'image', 'description',)
-
-
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
