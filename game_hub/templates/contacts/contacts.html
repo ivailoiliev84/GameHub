@@ -1,0 +1,45 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block content %}
+
+    <section id="game-details">
+        <h1>Contacts</h1>
+        <div class="info-section">
+
+            <div class="game-header">
+                {% if profile.profile_picture %}
+                    <img class="game-img" src="{{ profile.profile_picture.url }}" alt=""/>
+                {% else %}
+                    <img class="game-img" src="{% static 'images/eart.jpeg' %}" alt=""/>
+                {% endif %}
+
+                <h3>GameHub International Game Company</h3>
+                <div id="profile_font">
+                    <h3>phone: +359 222 222 333</h3>
+                    <h3>email: gamehub@abv.bg</h3>
+                    <h3>address: Sofia The Mall</h3>
+                </div>
+            </div>
+
+        <h2 class="aboutus">About Us</h2>
+            <p class="text">
+                 Google LLC е американска интернет и софтуерна корпорация със седалище в град Маунтин Вю,
+                Калифорния.
+                Тя е дъщерна компания на Alphabet Inc., специализирана основно в търсенето в интернет, но
+                притежаваща подразделения за изчисления в облак, електронна поща (Gmail), уеб
+                приложения за географски карти, сканиране и архивиране в дигитален вид на книги
+                и много други. Нейната мисия е „да организира световната информация и да я направи
+                универсално достъпна и полезна за всеки“.[4] Към 2019 г. Google има постоянно наети
+                114 096 служители. Компанията разполага с хиляди сървъри по света, които обработват
+                ежедневно милиони заявки за търсене и около 1 петабайт потребителски данни всеки час.
+            </p>
+            <div class="buttons">
+{#                <a href="{% url 'profile edit' %}" class="button">Edit</a>#}
+{#                <a href="{% url 'profile delete' %}" class="button">Delete</a>#}
+                <h3>Email Us</h3>
+            </div>
+        </div>
+
+    </section>
+
+{% endblock %}

@@ -40,6 +40,7 @@ DJANGO_APPS = (
 PROJECT_APPS = (
     'game_hub.accounts',
     'game_hub.games',
+    'game_hub.information',
 )
 
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS
