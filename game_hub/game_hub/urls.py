@@ -22,4 +22,5 @@ urlpatterns = [
                   path('admin/', admin.site.urls),
                   path('accounts/', include('game_hub.accounts.urls')),
                   path('', include('game_hub.games.urls')),
+                  path('info/', include('game_hub.information.urls')),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

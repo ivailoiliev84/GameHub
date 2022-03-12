@@ -1,22 +1,23 @@
+/*body {*/
+/*    background-image: url('../images/background.jpg');*/
+/*    background-attachment: fixed;*/
+/*    -webkit-background-size: cover;*/
+/*    -moz-background-size: cover;*/
+/*    -o-background-size: cover;*/
+/*    background-size: cover;*/
+/*}*/
 
-body {
-    background-image: url('../images/background.jpg');
-    background-attachment: fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-}
 
-
-nav{
+nav {
     font-size: 20px;
+    color: #ecf0f3;
 }
 
-.info-section{
+.info-section {
 
     background-image: url("../images/profile_and_game_detail_background.jpg");
 }
+
 .type {
     color: black;
 }
