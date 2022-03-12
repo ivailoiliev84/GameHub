@@ -27,39 +27,73 @@ class CatalogueListView(LoginRequiredMixin, view.ListView):
         return context
 
 
-@login_required
-def game_create(request):
-    if request.method == 'POST':
-        form = GameForm(request.POST, request.FILES)
-        if form.is_valid():
-            game = form.save(commit=False)
-            game.user = request.user
-            game.save()
-            return redirect('catalogue list')
-    else:
-        form = GameForm()
-    context = {
-        'form': form
-    }
-    return render(request, 'game_templates/game_create.html', context)
+# @login_required
+# def game_create(request):
+#     if request.method == 'POST':
+#         form = GameForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             game = form.save(commit=False)
+#             game.user = request.user
+#             game.save()
+#             return redirect('catalogue list')
+#     else:
+#         form = GameForm()
+#     context = {
+#         'form': form
+#     }
+#     return render(request, 'game_templates/game_create.html', context)
 
 
-def game_details(request, pk):
-    game = Game.objects.get(pk=pk)
-    comments = game.comment_set.all()
-    user = game.user
-    like_game_count = game.likegame_set.count()
+class GameCreateView(LoginRequiredMixin, view.FormView):
+    form_class = GameForm
+    template_name = 'game_templates/game_create.html'
+    success_url = reverse_lazy('catalogue list')
 
-    is_owner = game.user == request.user
+    def form_valid(self, form):
+        game = form.save(commit=False)
+        game.user = self.request.user
+        game.save()
+        return super().form_valid(form)
 
-    context = {
-        'game': game,
-        'is_owner': is_owner,
-        'comments': comments,
-        'user': user,
-        'like_game_count': like_game_count,
-    }
-    return render(request, 'game_templates/game_detail.html', context)
+
+# def game_details(request, pk):
+#     game = Game.objects.get(pk=pk)
+#     comments = game.comment_set.all()
+#     user = game.user
+#     like_game_count = game.likegame_set.count()
+#
+#     is_owner = game.user == request.user
+#
+#     context = {
+#         'game': game,
+#         'is_owner': is_owner,
+#         'comments': comments,
+#         'user': user,
+#         'like_game_count': like_game_count,
+#     }
+#     return render(request, 'game_templates/game_detail.html', context)
+
+
+class GameDetailsView(LoginRequiredMixin, view.DetailView):
+    model = Game
+    template_name = 'game_templates/game_detail.html'
+    context_object_name = 'game'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        game = context['game']
+
+        is_owner = game.user == self.request.user
+        comments = game.comment_set.all()
+        user = self.request.user
+        like_game_count = game.likegame_set.all().count()
+        context['game'] = game
+        context['is_owner'] = is_owner
+        context['comments'] = comments
+        context['user'] = user
+        context['like_game_count'] = like_game_count
+
+        return context
 
 
 def game_edit(request, pk):
@@ -115,6 +149,8 @@ def create_comment(request, pk):
         )
         comment.save()
         return redirect('game details', game.id)
+
+
 
 
 def create_like(request, pk):
