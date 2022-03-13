@@ -79,6 +79,7 @@ class Comment(models.Model):
             MinLengthValidator(COMMENT_MIN_LENGTH),
         )
 
+
     )
     user = models.ForeignKey(
         GameUser,
