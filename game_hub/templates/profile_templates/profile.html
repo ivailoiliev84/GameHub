@@ -1,18 +1,15 @@
 {% extends 'base/base.html' %}
 {% load static %}
 {% block content %}
-
     <section id="game-details">
         <h1>Profile Details</h1>
         <div class="info-section">
-
             <div class="game-header">
                 {% if profile.profile_picture %}
                     <img class="game-img" src="{{ profile.profile_picture.url }}" alt=""/>
                 {% else %}
                     <img class="game-img" src="{% static 'images/empty_profile.jpeg' %}" alt=""/>
                 {% endif %}
-
                 <h3>Name</h3>
                 <div id="profile_font">
                     <h1>{{ profile.first_name }} {{ profile.last_name }}</h1>
@@ -22,7 +19,6 @@
                     </div>
                 </div>
             </div>
-
             <p class="text">
                 Description: {{ profile.description }}
             </p>
@@ -31,6 +27,5 @@
                 <a href="{% url 'profile delete' %}" class="button">Delete</a>
             </div>
         </div>
-
     </section>
 {% endblock %}
