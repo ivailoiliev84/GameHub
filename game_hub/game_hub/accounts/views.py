@@ -1,13 +1,15 @@
 import os
 
 from django.contrib.auth import login, logout, get_user_model
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 
-from django.views import generic as view
+from django.views import generic as view, View
 
 # Create your views here.
-from game_hub.accounts.forms import CreateGameHubUser, LoginForm, CreateProfileForm
+from game_hub.accounts.forms import CreateGameHubUser, CreateProfileForm
 from game_hub.accounts.models import Profile
 
 GameHubUser = get_user_model()
@@ -24,19 +26,8 @@ class RegisterUser(view.CreateView):
         return user
 
 
-def login_user(request):
-    if request.method == 'POST':
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            user = form.save_user()
-            login(request, user)
-            return redirect('catalogue list')
-    else:
-        form = LoginForm()
-    context = {
-        'form': form
-    }
-    return render(request, 'accounts_templates/login_page.html', context)
+class LoginUserView(LoginView):
+    template_name = 'accounts_templates/login_page.html'
 
 
 def logout_user(request):
@@ -53,6 +44,15 @@ class ProfilePageView(view.TemplateView):
 
         context['profile'] = profile
         return context
+
+
+# class ProfileEditView(LoginRequiredMixin, view.FormView):
+#     success_url = reverse_lazy('profile')
+#     form_class = CreateProfileForm
+#     template_name = 'profile_templates/profile_edit.html'
+#
+#     def form_valid(self, form):
+#         return super(ProfileEditView, self).form_valid(form)
 
 
 def profile_edit(request):

@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model, authenticate, login
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ValidationError
 
 from game_hub.accounts.models import Profile
@@ -25,26 +26,8 @@ class CreateGameHubUser(UserCreationForm):
         fields = ('email',)
 
 
-class LoginForm(forms.Form):
-    email = forms.EmailField()
-    password = forms.CharField(
-        max_length=50,
-        widget=forms.PasswordInput()
-    )
-
-    user = None
-
-    def clean_password(self):
-        self.user = authenticate(
-            email=self.cleaned_data['email'],
-            password=self.cleaned_data['password']
-
-        )
-        if not self.user:
-            raise ValidationError('Email and/or password are incorrect')
-
-    def save_user(self):
-        return self.user
+class LoginForm(AuthenticationForm):
+    pass
 
 
 class CreateProfileForm(BootstrapFormMixin, forms.ModelForm):
