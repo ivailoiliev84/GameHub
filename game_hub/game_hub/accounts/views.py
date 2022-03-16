@@ -43,8 +43,6 @@ class ChangePasswordView(LoginRequiredMixin, PasswordChangeView):
     success_url = reverse_lazy('profile')
 
 
-
-
 class ProfilePageView(view.TemplateView):
     template_name = 'profile_templates/profile.html'
 
