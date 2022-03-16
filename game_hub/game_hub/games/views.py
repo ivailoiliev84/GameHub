@@ -143,3 +143,4 @@ def create_like(request, pk):
         )
         like.save()
     return redirect('game details', game.id)
+

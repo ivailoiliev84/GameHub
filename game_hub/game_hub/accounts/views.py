@@ -2,7 +2,7 @@ import os
 
 from django.contrib.auth import login, logout, get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, PasswordChangeView
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 
@@ -29,10 +29,20 @@ class RegisterUser(view.CreateView):
 class LoginUserView(LoginView):
     template_name = 'accounts_templates/login_page.html'
 
+    def get_success_url(self):
+        return reverse_lazy('catalogue list')
+
 
 def logout_user(request):
     logout(request)
     return redirect('home')
+
+
+class ChangePasswordView(LoginRequiredMixin, PasswordChangeView):
+    template_name = 'profile_templates/change_password.html'
+    success_url = reverse_lazy('profile')
+
+
 
 
 class ProfilePageView(view.TemplateView):
@@ -46,13 +56,8 @@ class ProfilePageView(view.TemplateView):
         return context
 
 
-# class ProfileEditView(LoginRequiredMixin, view.FormView):
-#     success_url = reverse_lazy('profile')
-#     form_class = CreateProfileForm
-#     template_name = 'profile_templates/profile_edit.html'
-#
-#     def form_valid(self, form):
-#         return super(ProfileEditView, self).form_valid(form)
+class ProfileEditView(view.FormView):
+    pass
 
 
 def profile_edit(request):

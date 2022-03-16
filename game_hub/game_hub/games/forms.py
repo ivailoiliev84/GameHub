@@ -3,7 +3,13 @@ import os
 from django import forms
 
 from game_hub.core.forms_bootstrap import BootstrapFormMixin
-from game_hub.games.models import Game, Comment
+from game_hub.games.models import Game, Comment, LikeGame
+
+
+
+
+
+
 
 
 class GameForm(BootstrapFormMixin, forms.ModelForm):
@@ -26,3 +32,4 @@ class CommentForm(forms.ModelForm):
         widgets = {
             'comment': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'comment'})
         }
+
