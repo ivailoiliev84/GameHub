@@ -23,8 +23,8 @@
                 Description: {{ profile.description }}
             </p>
             <div class="buttons">
-                <a href="{% url 'profile edit' %}" class="button">Edit</a>
-                <a href="{% url 'profile delete' %}" class="button">Delete</a>
+                <a href="{% url 'profile edit' request.user.id%}" class="button">Edit</a>
+                <a href="{% url 'profile delete' request.user.id %}" class="button">Delete</a>
             </div>
         </div>
     </section>

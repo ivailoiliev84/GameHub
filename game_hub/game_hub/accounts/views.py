@@ -11,6 +11,7 @@ from django.views import generic as view, View
 # Create your views here.
 from game_hub.accounts.forms import CreateGameHubUser, CreateProfileForm
 from game_hub.accounts.models import Profile
+from game_hub.games.models import Game
 
 GameHubUser = get_user_model()
 
@@ -54,31 +55,37 @@ class ProfilePageView(view.TemplateView):
         return context
 
 
-class ProfileEditView(view.FormView):
-    pass
+class ProfileEditView(LoginRequiredMixin, view.UpdateView):
+    template_name = 'profile_templates/profile_edit.html'
+    success_url = reverse_lazy('profile')
+    form_class = CreateProfileForm
+    model = Profile
+    context_object_name = 'profile'
+
+    def get_context_data(self, **kwargs):
+        context = super(ProfileEditView, self).get_context_data(**kwargs)
+        profile = context['profile']
+        profile.id = self.request.user.id
+        if profile.profile_picture:
+            old_picture = profile.profile_picture.path
+        else:
+            old_picture = None
+        if old_picture:
+            os.remove(old_picture)
+        return context
 
 
-def profile_edit(request):
-    profile = Profile.objects.get(user_id=request.user.id)
-    if profile.profile_picture:
-        old_picture = profile.profile_picture.path
-    else:
-        old_picture = None
-    if request.method == 'POST':
-        form = CreateProfileForm(request.POST, request.FILES, instance=profile)
-        if form.is_valid():
-            if old_picture:
-                os.remove(old_picture)
-                form.save()
-            else:
-                form.save()
-            return redirect('profile')
-    else:
-        form = CreateProfileForm(instance=profile)
-    context = {
-        'form': form
-    }
-    return render(request, 'profile_templates/profile_edit.html', context)
+class ProfileDeleteView(LoginRequiredMixin, view.DeleteView):
+    template_name = 'profile_templates/profile_delete.html'
+    model = Profile
+    success_url = reverse_lazy('home')
+    context_object_name = 'profile'
+
+    def form_valid(self, form):
+        user = self.request.user
+        user.delete()
+
+        return super(ProfileDeleteView, self).form_valid(form)
 
 
 def profile_delete(request):

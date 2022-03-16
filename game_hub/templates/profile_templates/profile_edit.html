@@ -1,7 +1,7 @@
 {% extends 'base/base.html' %}
 {% block content %}
     <section id="create-page" class="auth">
-        <form id="create" action="{% url 'profile edit' %}" method="post" enctype="multipart/form-data">
+        <form id="create" action="{% url 'profile edit' profile.id %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="container">
                 <h1><a href="{% url 'change password' %}">
