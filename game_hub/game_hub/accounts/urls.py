@@ -1,7 +1,7 @@
 from django.urls import path
 
-from game_hub.accounts.views import RegisterUser, logout_user, ProfilePageView, profile_edit, \
-    profile_delete, LoginUserView, ChangePasswordView
+from game_hub.accounts.views import RegisterUser, logout_user, ProfilePageView, \
+    LoginUserView, ChangePasswordView, ProfileEditView, ProfileDeleteView
 
 urlpatterns = (
     path('register/', RegisterUser.as_view(), name='register'),
@@ -10,6 +10,6 @@ urlpatterns = (
     path('change-password/', ChangePasswordView.as_view(), name='change password'),
 
     path('profile/', ProfilePageView.as_view(), name='profile'),
-    path('profile-edit/', profile_edit, name='profile edit'),
-    path('profile-delte/', profile_delete, name='profile delete')
+    path('profile-edit/<int:pk>', ProfileEditView.as_view(), name='profile edit'),
+    path('profile-delte/<int:pk>', ProfileDeleteView.as_view(), name='profile delete')
 )

@@ -5,7 +5,7 @@
             <h1 id="delete-message">Are you sure you want to delete {{ user }}?</h1>
             <div class="m-auto d-flex justify-content-center">
                 <div class="m-2">
-                    <form method="post" action="{% url 'profile delete' %}">
+                    <form method="post" action="{% url 'profile delete' request.user.id %}">
                         {% csrf_token %}
                         <input type="submit" value="Confirm" class="btn btn-danger"/>
                     </form>
