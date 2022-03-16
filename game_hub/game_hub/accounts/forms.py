@@ -26,6 +26,8 @@ class CreateGameHubUser(UserCreationForm):
         fields = ('email',)
 
 
+
+
 class LoginForm(AuthenticationForm):
     pass
 
