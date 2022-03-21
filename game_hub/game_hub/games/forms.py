@@ -6,12 +6,6 @@ from game_hub.core.forms_bootstrap import BootstrapFormMixin
 from game_hub.games.models import Game, Comment, LikeGame
 
 
-
-
-
-
-
-
 class GameForm(BootstrapFormMixin, forms.ModelForm):
     class Meta:
         model = Game
@@ -25,11 +19,10 @@ class GameForm(BootstrapFormMixin, forms.ModelForm):
         }
 
 
-class CommentForm(forms.ModelForm):
+class CommentForm(BootstrapFormMixin, forms.ModelForm):
     class Meta:
         model = Comment
         fields = ('comment',)
         widgets = {
-            'comment': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'comment'})
+            'comment': forms.Textarea(attrs={'placeholder': 'comment'})
         }
-
