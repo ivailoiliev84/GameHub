@@ -23,3 +23,7 @@ class ValidatorMaxSizeInMB:
 
     def __exception_message(self):
         return f"Max file size is {self.max_size:.f2}MB"
+
+
+
+

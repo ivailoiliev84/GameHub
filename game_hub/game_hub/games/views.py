@@ -22,11 +22,7 @@ class CatalogueListView(LoginRequiredMixin, view.ListView):
     template_name = 'game_templates/game_catalogue.html'
     model = Game
     context_object_name = 'games'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['games'] = Game.objects.all()
-        return context
+    paginate_by = 3
 
 
 class GameCreateView(LoginRequiredMixin, view.FormView):
@@ -50,6 +46,7 @@ class GameDetailsView(LoginRequiredMixin, view.DetailView):
         context = super().get_context_data(**kwargs)
         game = context['game']
 
+        context['form'] = CommentForm
         context['game'] = game
         context['is_owner'] = game.user == self.request.user
         context['comments'] = game.comment_set.all()
@@ -99,16 +96,23 @@ class GameMyGames(LoginRequiredMixin, view.ListView):
     template_name = 'game_templates/game_my_games.html'
     model = Game
     context_object_name = 'games'
+    paginate_by = 3
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data()
-        my_games = Game.objects.filter(user_id=self.request.user.id)
-        numbers_of_games = len(my_games)
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data()
+    #     my_games = Game.objects.filter(user_id=self.request.user.id)
+    #     numbers_of_games = len(my_games)
+    #
+    #     context['games'] = my_games
+    #     context['numbers_of_games'] = numbers_of_games
+    #
+    #     return context
 
-        context['games'] = my_games
-        context['numbers_of_games'] = numbers_of_games
+    def get_queryset(self):
+        games = Game.objects.filter(user_id=self.request.user.id)
+        numbers_of_my_games = len(games)
 
-        return context
+        return games
 
 
 def create_comment(request, pk):
@@ -122,12 +126,6 @@ def create_comment(request, pk):
         )
         comment.save()
         return redirect('game details', game.id)
-    else:
-        form = CommentForm()
-    context = {
-        'form': form
-    }
-    return render(request, 'game_templates/game_detail.html', context)
 
 
 def create_like(request, pk):
@@ -143,4 +141,3 @@ def create_like(request, pk):
         )
         like.save()
     return redirect('game details', game.id)
-
