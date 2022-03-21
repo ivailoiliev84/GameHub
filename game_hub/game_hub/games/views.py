@@ -3,7 +3,7 @@ import os
 from django.contrib.auth import get_user_model
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 
 from django.views import generic as view
@@ -98,20 +98,8 @@ class GameMyGames(LoginRequiredMixin, view.ListView):
     context_object_name = 'games'
     paginate_by = 3
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data()
-    #     my_games = Game.objects.filter(user_id=self.request.user.id)
-    #     numbers_of_games = len(my_games)
-    #
-    #     context['games'] = my_games
-    #     context['numbers_of_games'] = numbers_of_games
-    #
-    #     return context
-
     def get_queryset(self):
         games = Game.objects.filter(user_id=self.request.user.id)
-        numbers_of_my_games = len(games)
-
         return games
 
 

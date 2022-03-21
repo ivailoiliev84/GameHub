@@ -6,12 +6,12 @@ from django.contrib.auth.views import LoginView, PasswordChangeView
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 
-from django.views import generic as view, View
+from django.views import generic as view
 
 # Create your views here.
 from game_hub.accounts.forms import CreateGameHubUser, CreateProfileForm
 from game_hub.accounts.models import Profile
-from game_hub.games.models import Game
+
 
 GameHubUser = get_user_model()
 
