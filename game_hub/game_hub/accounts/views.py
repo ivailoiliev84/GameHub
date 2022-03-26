@@ -88,26 +88,26 @@ class ProfileDeleteView(LoginRequiredMixin, view.DeleteView):
         return super(ProfileDeleteView, self).form_valid(form)
 
 
-def profile_delete(request):
-    profile = Profile.objects.get(user_id=request.user.id)
-    user = request.user
-    if profile.profile_picture:
-        old_picture = profile.profile_picture.path
-    else:
-        old_picture = None
-    if request.method == "POST":
-        if old_picture:
-            os.remove(old_picture)
-            user.delete()
-            profile.delete()
-            return redirect('home')
-        else:
-            user.delete()
-            profile.delete()
-            return redirect('home')
-    else:
-
-        context = {
-            'user': user,
-        }
-        return render(request, 'profile_templates/profile_delete.html', context)
+# def profile_delete(request):
+#     profile = Profile.objects.get(user_id=request.user.id)
+#     user = request.user
+#     if profile.profile_picture:
+#         old_picture = profile.profile_picture.path
+#     else:
+#         old_picture = None
+#     if request.method == "POST":
+#         if old_picture:
+#             os.remove(old_picture)
+#             user.delete()
+#             profile.delete()
+#             return redirect('home')
+#         else:
+#             user.delete()
+#             profile.delete()
+#             return redirect('home')
+#     else:
+#
+#         context = {
+#             'user': user,
+#         }
+#         return render(request, 'profile_templates/profile_delete.html', context)

@@ -77,6 +77,7 @@ class Comment(models.Model):
         max_length=COMMENT_MAX_LENGTH,
         validators=(
             MinLengthValidator(COMMENT_MIN_LENGTH),
+            validator_only_letters_numbers,
         )
 
 

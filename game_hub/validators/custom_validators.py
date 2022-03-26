@@ -4,7 +4,7 @@ from django.utils.deconstruct import deconstructible
 
 def validator_only_letters_numbers(value):
     for letter in value:
-        if not letter.isalpha and letter.isdigit():
+        if not letter.isalpha() and not letter.isdigit() and letter != '_':
             raise ValidationError('Ensure this value contains only letters, numbers, and underscore.')
 
 
@@ -23,7 +23,3 @@ class ValidatorMaxSizeInMB:
 
     def __exception_message(self):
         return f"Max file size is {self.max_size:.f2}MB"
-
-
-
-

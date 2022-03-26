@@ -63,14 +63,14 @@ class GameEditView(LoginRequiredMixin, view.UpdateView):
     success_url = reverse_lazy('my games')
     context_object_name = 'game'
 
-    def get_context_data(self, **kwargs):
-        context = super(GameEditView, self).get_context_data(**kwargs)
-        game = context['game']
+    # def get_context_data(self, **kwargs):
+    #     context = super(GameEditView, self).get_context_data(**kwargs)
+    #     game = context['game']
+    #     old_image = game.image.path
+    #     os.remove(old_image)
+    #
+    #     return context
 
-        old_image = game.image.path
-        os.remove(old_image)
-
-        return context
 
 
 class DeleteGameView(LoginRequiredMixin, view.DeleteView):
