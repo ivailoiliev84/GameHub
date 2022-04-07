@@ -1,7 +1,5 @@
 import os
 
-from django.contrib.auth import get_user_model
-
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
@@ -13,8 +11,7 @@ from game_hub.games.forms import GameForm, CommentForm
 from game_hub.games.models import Game, Comment, LikeGame
 
 
-class HomeView(view.ListView):
-    model = get_user_model()
+class HomeView(view.TemplateView):
     template_name = 'base/home_page.html'
 
 
@@ -62,15 +59,6 @@ class GameEditView(LoginRequiredMixin, view.UpdateView):
     form_class = GameForm
     success_url = reverse_lazy('my games')
     context_object_name = 'game'
-
-    # def get_context_data(self, **kwargs):
-    #     context = super(GameEditView, self).get_context_data(**kwargs)
-    #     game = context['game']
-    #     old_image = game.image.path
-    #     os.remove(old_image)
-    #
-    #     return context
-
 
 
 class DeleteGameView(LoginRequiredMixin, view.DeleteView):

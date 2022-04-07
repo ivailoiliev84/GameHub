@@ -1,8 +1,6 @@
 from django import forms
-from django.contrib.auth import get_user_model, authenticate, login
+from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.exceptions import ValidationError
 
 from game_hub.accounts.models import Profile
 from game_hub.core.forms_bootstrap import BootstrapFormMixin

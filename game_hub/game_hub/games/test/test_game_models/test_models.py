@@ -1,4 +1,3 @@
-from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 from model_bakery import baker
@@ -15,15 +14,10 @@ class TestGameCreateModel(TestCase):
 
         self.assertEqual('Wow', game.title)
 
-    def test_game_title_validator_only_letters_numbers_and_underscore_with_invalid_data(self):
-        title = 'Wow%%%'
+    def test_game_title_validator_only_letters_numbers_and_underscore_with_invalid_data_contain_sign_percent(self):
+        game = baker.make(Game)
+        game.title = 'Wow%'
 
-        game = Game(
-            title=title,
-            category='Action',
-            max_level=5,
-            description='!!!',
-        )
         with self.assertRaises(ValidationError) as context:
             game.full_clean()
             game.save()
