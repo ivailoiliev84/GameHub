@@ -30,8 +30,6 @@ class TestGameHubUserModel(TestCase):
         self.assertIsNotNone(context.exception)
 
 
-
-
 class TestProfileModel(TestCase):
 
     def test_create_profile_with_valid_data(self):
@@ -55,7 +53,6 @@ class TestProfileModel(TestCase):
         profile.last_name = 'iliev%'
 
         with self.assertRaises(ValidationError) as context:
-
             profile.full_clean()
             profile.save()
 

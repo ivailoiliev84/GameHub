@@ -54,6 +54,8 @@ class Game(models.Model):
     )
 
     image = models.ImageField(
+        blank=True,
+        null=True,
         upload_to='game_images',
         validators=(
             ValidatorMaxSizeInMB(IMAGE_MAX_SIZE),
@@ -61,6 +63,7 @@ class Game(models.Model):
 
     )
     description = models.TextField(
+        max_length=DESCRIPTION_TEXT_FIELD_MAX_LENGTH,
         blank=True,
         null=True,
     )
@@ -79,7 +82,6 @@ class Comment(models.Model):
             MinLengthValidator(COMMENT_MIN_LENGTH),
             validator_only_letters_numbers,
         )
-
 
     )
     user = models.ForeignKey(
