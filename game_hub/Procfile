@@ -1,2 +1,2 @@
-release: python manage.py migrate
-web: gunicorn game_hub.wsgi --log-file -
+release: --python game_hub manage.py 
+web: gunicorn --paythonpath game_hub game_hub.wsgi
